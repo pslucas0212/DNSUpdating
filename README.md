@@ -5,7 +5,7 @@ Updated 2021-05-03
 For this example the subnet is 10.1.10.0/24 and domain is example.com
 
 
-## Notes on setting up remote DNS updating with nsupdate
+## Notes on setting up dynamic DNS with nsupdate
 
 - Update named.conf.   Add the following lines:
 ```
