@@ -37,9 +37,17 @@ allow-update {key rndc-key;};
       # chown -v root:named /etc/rndc.key
       # chmod -v 640 /etc/rndc.key
       
-- Test updates to the forward zone
+- Test updates to the forward zone (add -d to nsupdate comand for debug: nsupdate -d -k ...)
 
       # echo -e "zone example.com.\n server 10.1.10.254\n update add atest.example.com 3600 IN A 10.1.10.10\n send\n" | nsupdate -k /etc/rndc.key
       # nslookup atest.example.com
       # echo -e "zone example.com.\n server 10.1.10.254\n update delete atest.example.com 3600 IN A 10.1.10.10\n send\n" | nsupdate -k /etc/rndc.key
+      
+- Test updates to reverse zone (add -d to nsupdate comand for debug: nsupdate -d -k ...)
+     
+      # echo -e "zone 10.1.10.in-addr.arpa.\n server 10.1.10.254\n update add 10.10.1.10.in-addr.arpa. 300 PTR atest.example.com\n send\n" | nsupdate -k /etc/rndc.key
+      # nslookup 10.1.10.10
+      # dig +short -x 10.1.10.10
+      # echo -e "zone 10.1.10.in-addr.arpa.\n server 10.1.10.254\n update add 10.10.1.10.in-addr.arpa. 300 PTR atest.example.com\n send\n" | nsupdate -k /etc/rndc.key
+      
     
