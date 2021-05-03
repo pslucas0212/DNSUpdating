@@ -1,5 +1,10 @@
-# DNS Dynaamic Updating
-Notes on setting up remote DNS updating with nsupdate
+# DNS Dynamic Updating
+
+Updated 2021-05-03
+Note: named is running on a RHEL 8.3 server updated in April 2021 and the test client servers is also running RHEL 8.3
+
+
+## Notes on setting up remote DNS updating with nsupdate
 
 - Update named.conf.   Add the following lines:
 ```
@@ -16,7 +21,10 @@ controls {
 };
 ```
 
-
+- Add the following line to both forward and reverse zone info in named.conf
+```
+allow-update {key rndc-key;};
+```
 
 - Update bind bind-utils on the Satellite Server
 
@@ -29,7 +37,9 @@ controls {
       # chown -v root:named /etc/rndc.key
       # chmod -v 640 /etc/rndc.key
       
-- Command to update forward zone
+- Test updates to the forward zone
 
       # echo -e "server 10.1.10.254\n update add 10.1.10.10.in-addr.arpa. 300 PTR atest.example.com\n send\n" | nsupdate -k /etc/rndc.key
+      # nslookup atest.example.com
+      # echo -e "server 10.1.10.254\n update delete 10.1.10.10.in-addr.arpa. 300 PTR atest.example.com\n send\n" | nsupdate -k /etc/rndc.key
     
