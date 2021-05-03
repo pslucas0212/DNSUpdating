@@ -1,7 +1,8 @@
 # DNS Dynamic Updating
 
 Updated 2021-05-03  
-**Note:** named is running on a RHEL 8.3 server updated in April 2021 and the test client servers is also running RHEL 8.3
+**Note:** named is running on a RHEL 8.3 server updated in April 2021 and the test client servers is also running RHEL 8.3  
+For this example the subnet is 10.1.10.0/24 and domain is example.com
 
 
 ## Notes on setting up remote DNS updating with nsupdate
