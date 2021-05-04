@@ -50,12 +50,17 @@ allow-update {key rndc-key;};
       # echo -e "zone 10.1.10.in-addr.arpa.\n server 10.1.10.254\n update add 10.10.1.10.in-addr.arpa. 300 PTR atest.example.com\n send\n" | nsupdate -k /etc/rndc.key
       # nslookup 10.1.10.10
       # dig +short -x 10.1.10.10
-      # echo -e "zone 10.1.10.in-addr.arpa.\n server 10.1.10.254\n update add 10.10.1.10.in-addr.arpa. 300 PTR atest.example.com\n send\n" | nsupdate -k /etc/rndc.key
+      # echo -e "zone 10.1.10.in-addr.arpa.\n server 10.1.10.254\n update delete 10.10.1.10.in-addr.arpa. 300 PTR atest.example.com\n send\n" | nsupdate -k /etc/rndc.key
      
-- For convience - add new dns entry forward and reverse   
+- For convience - add new dns entry forward and reverse 
+  
       # echo -e "zone example.com.\n server 10.1.10.254\n update add atest.example.com 3600 IN A 10.1.10.10\n send\n" | nsupdate -k /etc/rndc.key
       # echo -e "zone 10.1.10.in-addr.arpa.\n server 10.1.10.254\n update add 10.10.1.10.in-addr.arpa. 300 PTR atest.example.com\n send\n" | nsupdate -k /etc/rndc.key
       
+- For convience - delete dns entry forward and reverse 
+
+      # echo -e "zone example.com.\n server 10.1.10.254\n update delete atest.example.com 3600 IN A 10.1.10.10\n send\n" | nsupdate -k /etc/rndc.key
+      # echo -e "zone 10.1.10.in-addr.arpa.\n server 10.1.10.254\n update delete 10.10.1.10.in-addr.arpa. 300 PTR atest.example.com\n send\n" | nsupdate -k /etc/rndc.key
       
       
      
