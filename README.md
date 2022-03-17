@@ -4,6 +4,57 @@ Update in progress - 2022-03-17
 
 **Note:** named is running on a RHEL 8.5 server updated in March 2022. For this example the subnet is 10.1.10.0/24 and domain is example.com
 
+### Pre-Reqs
+Create a RHEL 8.5 VM to provide DDNS and DHCP services.  The VM was sized with 2 vCPUS, 4GB RAM and 100GB "local" drive.  Note: For this example I have enabled Simple Content Access (SCA) on the Red Hat Customer portal and do not need to attach a subscription to the RHEL repositories.  After you have created and started the RHEL 8.5 VM, we will ssh to the RHEL VM and work from the command line.
+
+For this lab environment I chose ns02.example.com for the hostname of the server. 
+
+Register the Server to Red Hat Subscription Management service.
+```
+# sudo subscription-manager register --org=<org id> --activationkey=<activation key>
+```
+You can verify the registration with the following command.
+```
+# sudo subscription-manager status
+```    
+#### Configure and enable repositories  
+
+With SCA, we still need to enable relevant repositories for our RHEL instances.  Following steps will walk you through enabling repos.
+
+Disable all repos.
+```    
+# sudo subscription-manager repos --disable "*"
+```       
+Enable the following repositories.
+```    
+# sudo subscription-manager repos --enable=rhel-8-server-rpms \
+
+```
+Clear any meta-data.   
+```    
+# sudo yum clean all
+```          
+Verify that repositories are enabled.  
+```    
+# sudo yum repolist enabled
+# sudo subscription-manager repos --list-enabled
+```          
+
+#### Update the RHEL 7.9 instance and finish server setup
+Install all patches on your RHEL 7.9 instance.
+```
+# sudo yum -y update
+```
+ 
+I would also recommend registering this server to Insights.  
+```
+# insights-client --enable
+```
+Install SOS package on base OS for initial systems analysis in case you need to collect problem determination for any system related issues.  
+```
+# sudo yum install sos
+```
+
 ## Install named
 
 ## Notes on setting up dynamic DNS with nsupdate
