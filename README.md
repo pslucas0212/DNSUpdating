@@ -121,4 +121,5 @@ allow-update {key rndc-key;};
       
       
 ### References
-- [How to configure the BIND DNS service[(https://access.redhat.com/solutions/40683)
+- [How to configure the BIND DNS service](https://access.redhat.com/solutions/40683)
+- [How to configure Dynamic DNS Server on AlmaLinux / Rocky Linux](https://www.techbrown.com/configure-dynamic-dns-server-almalinux-rocky-linux/)
