@@ -60,9 +60,17 @@ I would also recommend registering this server to Insights.
 ```
 
 
-## Install named
+## Install named and dhcpd
 
-## Notes on setting up dynamic DNS with nsupdate
+We will install named, the bind utilities, the dns caching sever and dhcpd.
+```
+# sudo yum -y install bind* caching* dhcp*
+...
+Complete!
+```
+
+
+### Notes on setting up dynamic DNS with nsupdate
 
 - Update named.conf.   Add the following lines:
 ```
