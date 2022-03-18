@@ -17,43 +17,48 @@ You can verify the registration with the following command.
 ```
 # sudo subscription-manager status
 ```    
-#### Configure and enable repositories  
+#### Enabled repositories  
 
-With SCA, we still need to enable relevant repositories for our RHEL instances.  Following steps will walk you through enabling repos.
+We will want the following two RHEL 8 repositoires enabled on this system:
+- rhel-8-for-x86_64-baseos-rpms
+- rhel-8-for-x86_64-appstream-rpms
 
-Disable all repos.
-```    
-# sudo subscription-manager repos --disable "*"
-```       
-Enable the following repositories.
-```    
-# sudo subscription-manager repos --enable=rhel-8-server-rpms \
-
-```
-Clear any meta-data.   
-```    
-# sudo yum clean all
-```          
 Verify that repositories are enabled.  
 ```    
-# sudo yum repolist enabled
 # sudo subscription-manager repos --list-enabled
++----------------------------------------------------------+
+    Available Repositories in /etc/yum.repos.d/redhat.repo
++----------------------------------------------------------+
+Repo ID:   rhel-8-for-x86_64-baseos-rpms
+Repo Name: Red Hat Enterprise Linux 8 for x86_64 - BaseOS (RPMs)
+Repo URL:  https://cdn.redhat.com/content/dist/rhel8/$releasever/x86_64/baseos/o
+           s
+Enabled:   1
+
+Repo ID:   rhel-8-for-x86_64-appstream-rpms
+Repo Name: Red Hat Enterprise Linux 8 for x86_64 - AppStream (RPMs)
+Repo URL:  https://cdn.redhat.com/content/dist/rhel8/$releasever/x86_64/appstrea
+           m/os
+Enabled:   1
 ```          
 
-#### Update the RHEL 7.9 instance and finish server setup
-Install all patches on your RHEL 7.9 instance.
+#### Update the RHEL 8.5 VM and finish server setup
+Install all the latest patches on your RHEL 8.5 Server VM
 ```
 # sudo yum -y update
+Updating Subscription Management repositories.
+Red Hat Enterprise Linux 8 for x86_64 - BaseOS   27 MB/s |  45 MB     00:01    
+Red Hat Enterprise Linux 8 for x86_64 - AppStre  26 MB/s |  39 MB     00:01    
+Dependencies resolved.
+...
+Complete!
 ```
  
 I would also recommend registering this server to Insights.  
 ```
-# insights-client --enable
+# sudo insights-client --enable
 ```
-Install SOS package on base OS for initial systems analysis in case you need to collect problem determination for any system related issues.  
-```
-# sudo yum install sos
-```
+
 
 ## Install named
 
@@ -115,4 +120,5 @@ allow-update {key rndc-key;};
       # echo -e "zone 10.1.10.in-addr.arpa.\n server 10.1.10.254\n update delete 10.10.1.10.in-addr.arpa. 300 PTR atest.example.com\n send\n" | nsupdate -k /etc/rndc.key
       
       
-     
+### References
+- [How to configure the BIND DNS service[(https://access.redhat.com/solutions/40683)
