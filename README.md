@@ -1,6 +1,6 @@
 # DNS Dynamic Updating
 
-Update in progress - 2022-03-17
+Update in progress - 2022-03-21
 
 **Note:** named is running on a RHEL 8.5 server updated in March 2022. For this example the subnet is 10.1.10.0/24 and domain is example.com
 
@@ -69,6 +69,12 @@ We will install named, the bind utilities, the dns caching sever and dhcpd.
 Complete!
 ```
 
+Update firewall settings
+```
+# sudo firewall-cmd \
+--add-port="53/udp" --add-port="53/tcp" \
+--add-port="67/udp" --add-port="69/udp"
+```
 
 ### Notes on setting up dynamic DNS with nsupdate
 
