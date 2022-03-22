@@ -147,11 +147,54 @@ zone "example.com" {
 
 #### Forward zone file
 ```
-
+$ORIGIN .
+$TTL 10800	; 3 hours
+example.com		IN SOA	ns02.example.com. root.example.com. (
+				12         ; serial
+				86400      ; refresh (1 day)
+				3600       ; retry (1 hour)
+				604800     ; expire (1 week)
+				3600       ; minimum (1 hour)
+				)
+			NS	ns02.example.com.
+$ORIGIN example.com.
+ds01			A	10.1.10.250
+exsi01			A	10.1.10.241
+exsi02			A	10.1.10.242
+exsi03			A	10.1.10.243
+ns01			A	10.1.1.254
+ns02			A	10.1.10.253
+sat01			A	10.1.10.254
+vsca01			A	10.1.10.240
 ```
 
 #### Reverse zone file
 ```
+$ORIGIN .
+$TTL 10800	; 3 hours
+10.1.10.in-addr.arpa	IN SOA	ns02.example.com. root.10.1.10.in-addr.arpa. (
+				12         ; serial
+				86400      ; refresh (1 day)
+				3600       ; retry (1 hour)
+				604800     ; expire (1 week)
+				3600       ; minimum (1 hour)
+				)
+			NS	ns02.example.com.
+$ORIGIN 10.1.10.in-addr.arpa.
+240			PTR	vsca01.example.com.
+241			PTR	exsi01.example.com.
+242			PTR	exsi02.example.com.
+243			PTR	exsi03.example.com.
+250			PTR	ds01.example.com.
+254			PTR	sat01.example.com.
+253			PTR	ns02.example.com.
+ns02			A	10.1.10.253
+ds01			A	10.1.10.250
+exsi01			A	10.1.10.241
+exsi02			A	10.1.10.242
+exsi03			A	10.1.10.243
+sat01			A	10.1.10.254
+vsca01			A	10.1.10.240
 ```
 
 
