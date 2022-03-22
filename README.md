@@ -1,6 +1,6 @@
 # DNS Dynamic Updating
 
-Update in progress - 2022-03-21
+Update in progress - 2022-03-22
 
 **Note:** named is running on a RHEL 8.5 server updated in March 2022. For this example the subnet is 10.1.10.0/24 and domain is example.com
 
@@ -145,7 +145,7 @@ zone "example.com" {
 };
 ```
 
-#### Forward zone file
+#### Forward zone file - db.example.com
 ```
 $ORIGIN .
 $TTL 10800	; 3 hours
@@ -168,7 +168,7 @@ sat01			A	10.1.10.254
 vsca01			A	10.1.10.240
 ```
 
-#### Reverse zone file
+#### Reverse zone file - db.10.1.10.in-addr.arpa
 ```
 $ORIGIN .
 $TTL 10800	; 3 hours
@@ -208,23 +208,23 @@ You will need bind installed to use nsupdate.  Instaoo or update bind-utils on t
 
 Copy and prepare the rndc.key from the server running named
 ```
-      # scp root@ns02.example.com:/etc/rndc.key /etc/rndc.key
-      # restorecon -v /etc/rndc.key
-      # chown -v root:named /etc/rndc.key
-      # chmod -v 640 /etc/rndc.key
+# scp root@ns02.example.com:/etc/rndc.key /etc/rndc.key
+# restorecon -v /etc/rndc.key
+# chown -v root:named /etc/rndc.key
+# chmod -v 640 /etc/rndc.key
 ```
 Test updates to the forward zone (add -d to nsupdate comand for debug: nsupdate -d -k ...)
 ```
-      # echo -e "zone example.com.\n server 10.1.10.253\n update add atest.example.com 3600 IN A 10.1.10.10\n send\n" | nsupdate -k /etc/rndc.key
-      # nslookup atest.example.com
-      # echo -e "zone example.com.\n server 10.1.10.253\n update delete atest.example.com 3600 IN A 10.1.10.10\n send\n" | nsupdate -k /etc/rndc.key
+# echo -e "zone example.com.\n server 10.1.10.253\n update add atest.example.com 3600 IN A 10.1.10.10\n send\n" | nsupdate -k /etc/rndc.key
+# nslookup atest.example.com
+# echo -e "zone example.com.\n server 10.1.10.253\n update delete atest.example.com 3600 IN A 10.1.10.10\n send\n" | nsupdate -k /etc/rndc.key
 ```      
-- Test updates to reverse zone (add -d to nsupdate comand for debug: nsupdate -d -k ...)
+Test updates to reverse zone (add -d to nsupdate comand for debug: nsupdate -d -k ...)
 ```     
-      # echo -e "zone 10.1.10.in-addr.arpa.\n server 10.1.10.253\n update add 10.10.1.10.in-addr.arpa. 300 PTR atest.example.com\n send\n" | nsupdate -k /etc/rndc.key
-      # nslookup 10.1.10.10
-      # dig +short -x 10.1.10.10
-      # echo -e "zone 10.1.10.in-addr.arpa.\n server 10.1.10.253\n update delete 10.10.1.10.in-addr.arpa. 300 PTR atest.example.com\n send\n" | nsupdate -k /etc/rndc.key
+# echo -e "zone 10.1.10.in-addr.arpa.\n server 10.1.10.253\n update add 10.10.1.10.in-addr.arpa. 300 PTR atest.example.com\n send\n" | nsupdate -k /etc/rndc.key
+# nslookup 10.1.10.10
+# dig +short -x 10.1.10.10
+# echo -e "zone 10.1.10.in-addr.arpa.\n server 10.1.10.253\n update delete 10.10.1.10.in-addr.arpa. 300 PTR atest.example.com\n send\n" | nsupdate -k /etc/rndc.key
 ```
       
 ### References
