@@ -77,6 +77,19 @@ Update firewall settings
 --add-port="53/udp" --add-port="53/tcp" \
 --add-port="67/udp" --add-port="69/udp"
 ```
+Make the firewall changes permanent
+```
+# sudo firewall-cmd --runtime-to-permanent
+```
+
+Verify the firewall changes
+```
+# sudo firewall-cmd --list-all
+```
+Setup system Clock with chrony.  I have a local time server that my systems use for synching time.  Type the following command to check the the time synch status.  
+```
+# chronyc sources -v
+```
 
 See this article [DHCP Setup for Satellite](https://github.com/pslucas0212/DHCP-Setup-for-Satellite/edit/main/README.md) for the configuration of DHCP.
 
