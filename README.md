@@ -220,7 +220,7 @@ vsca01			A	10.1.10.240
 
 ### Testing updates from a client
 
-You will need bind installed to use nsupdate.  Instaoo or update bind-utils on the client Server as needed
+You will need bind installed to use nsupdate.  Install or update bind-utils on the client Server as needed
 ```
 # yum list installed | grep bind-utils
 # yum install bind-utils
