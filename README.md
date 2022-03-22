@@ -83,6 +83,10 @@ In my example setup I used externalized ... from named.conf
 File Name | Location | Info
 ----------|----------|------
 named.conf | /etc | something
+options.conf | /etc/named | named.conf options information
+zones.conf | /etc/named | named.conf zone information
+db.10.1.10.in-addr.arpa | /var/named/dynamic | reverse zone file
+db.example.com | /var/named/dynamic | forward zone file
 
 
 #### named.conf example
@@ -105,6 +109,52 @@ include "/etc/named.rfc1912.zones";
 // Public view read by Server Admin
 include "/etc/named/zones.conf";
 ```
+
+#### options.conf example
+```
+directory "/var/named";
+forwarders { 10.1.1.254; };
+
+recursion yes;
+allow-query { any; };
+dnssec-enable yes;
+dnssec-validation yes;
+
+empty-zones-enable yes;
+
+listen-on-v6 { any; };
+
+allow-recursion { localnets; localhost; };
+```
+
+#### zones.conf example
+```
+zone "10.1.10.in-addr.arpa" {
+    type master;
+    file "/var/named/dynamic/db.10.1.10.in-addr.arpa";
+    update-policy {
+            grant rndc-key zonesub ANY;
+    };
+};
+zone "example.com" {
+    type master;
+    file "/var/named/dynamic/db.example.com";
+    update-policy {
+            grant rndc-key zonesub ANY;
+    };
+};
+```
+
+#### Forward zone file
+```
+
+```
+
+#### Reverse zone file
+```
+
+
+
 
 ```
 include "/etc/rndc.key";
