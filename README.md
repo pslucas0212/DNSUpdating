@@ -80,7 +80,7 @@ Update firewall settings
 
 See this article [DHCP Setup for Satellite](https://github.com/pslucas0212/DHCP-Setup-for-Satellite/edit/main/README.md) for the configuration of DHCP.
 
-### Notes on setting up dynamic DNS with nsupdate
+### Configuring named
 
 In my example setup I externailize the options and zones information for easier readability.
 
