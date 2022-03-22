@@ -2,6 +2,8 @@
 
 Update in progress - 2022-03-22
 
+The goal of this and associated articles is to describe how we would seutp DDNS and DHCP for use with Red Hat Satellite when provisioing RHEL VMs.  We want Satellite to grab an available IP address and associate it with FQDN and then update DNS server.  We can provision DDNS and DHCP servers on the Satellite server as part of the Satellite installation, but I would guess most shops already have these services in place and we to "integrate" with those existing services.
+
 **Note:** named is running on a RHEL 8.5 server updated in March 2022. For this example the subnet is 10.1.10.0/24 and domain is example.com
 
 ### Pre-Reqs
@@ -75,6 +77,8 @@ Update firewall settings
 --add-port="53/udp" --add-port="53/tcp" \
 --add-port="67/udp" --add-port="69/udp"
 ```
+
+See this article [DHCP Setup for Satellite](https://github.com/pslucas0212/DHCP-Setup-for-Satellite/edit/main/README.md) for the configuration of DHCP.
 
 ### Notes on setting up dynamic DNS with nsupdate
 
