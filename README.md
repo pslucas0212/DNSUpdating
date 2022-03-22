@@ -229,6 +229,7 @@ Test updates to reverse zone (add -d to nsupdate comand for debug: nsupdate -d -
 # dig +short -x 10.1.10.10
 # echo -e "zone 10.1.10.in-addr.arpa.\n server 10.1.10.253\n update delete 10.10.1.10.in-addr.arpa. 300 PTR atest.example.com\n send\n" | nsupdate -k /etc/rndc.key
 ```
+****Note**** - Typically the forward and reverse zone files are "permanently" updated around 15 minutes after the DNS update is issued from the client machine.
       
 ### References
 - [How to configure the BIND DNS service](https://access.redhat.com/solutions/40683)
