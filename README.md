@@ -78,7 +78,13 @@ Update firewall settings
 
 ### Notes on setting up dynamic DNS with nsupdate
 
-- Update named.conf.   Add the following lines:
+In my example setup I used externalized ... from named.conf
+
+File Name | Location | Info
+----------|----------|------
+named.conf | /etc | something
+
+
 ```
 include "/etc/rndc.key";
 
