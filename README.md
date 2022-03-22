@@ -85,6 +85,27 @@ File Name | Location | Info
 named.conf | /etc | something
 
 
+#### named.conf example
+```
+// named.conf
+
+include "/etc/rndc.key";
+
+controls  {
+        inet 127.0.0.1 port 953 allow { 127.0.0.1; } keys { "rndc-key"; };
+};
+
+options  {
+        include "/etc/named/options.conf";
+};
+
+include "/etc/named.rfc1912.zones";
+
+
+// Public view read by Server Admin
+include "/etc/named/zones.conf";
+```
+
 ```
 include "/etc/rndc.key";
 
