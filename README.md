@@ -152,7 +152,7 @@ zone "example.com" {
 
 #### Reverse zone file
 ```
-
+```
 
 
 
