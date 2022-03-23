@@ -218,7 +218,7 @@ vsca01			A	10.1.10.240
 ```
 
 
-### Testing updates from a client
+### Testing updates from a client - The Satellite Server
 
 You will need bind installed to use nsupdate.  Install or update bind-utils on the client Server as needed
 ```
@@ -247,6 +247,26 @@ Test updates to reverse zone (add -d to nsupdate comand for debug: nsupdate -d -
 # echo -e "zone 10.1.10.in-addr.arpa.\n server 10.1.10.253\n update delete 10.10.1.10.in-addr.arpa. 300 PTR atest.example.com\n send\n" | nsupdate -k /etc/rndc.key
 ```
 ****Note**** - Typically the forward and reverse zone files are "permanently" updated around 15 minutes after the DNS update is issued from the client machine.
+
+Assign the foreman-proxy user to the named group manually. 
+```
+usermod -a -G named foreman-proxy
+```
+
+Enter the satellite-installer command to make the following persistent changes to the /etc/foreman-proxy/settings.d/dns.yml file:
+```
+# satellite-installer --foreman-proxy-dns=true \
+--foreman-proxy-dns-managed=false \
+--foreman-proxy-dns-provider=nsupdate \
+--foreman-proxy-dns-server="10.1.10.253" \
+--foreman-proxy-keyfile=/etc/rndc.key \
+--foreman-proxy-dns-ttl=86400
+```
+
+Restart the foreman-proxy service:
+```
+# systemctl restart foreman-proxy
+```
       
 ### References
 - [How to configure the BIND DNS service](https://access.redhat.com/solutions/40683)
