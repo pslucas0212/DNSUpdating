@@ -73,9 +73,9 @@ Complete!
 
 Update firewall settings
 ```
-# sudo firewall-cmd \
---add-port="53/udp" --add-port="53/tcp" \
---add-port="67/udp" --add-port="69/udp"
+# firewall-cmd \
+--add-service dns \
+--add-service dhcp
 ```
 Make the firewall changes permanent
 ```
