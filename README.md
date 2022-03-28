@@ -93,7 +93,7 @@ Setup system Clock with chrony.  I have a local time server that my systems use 
 # chronyc sources -v
 ```
 
-See this article [DHCP Setup for Satellite](https://github.com/pslucas0212/DHCP-Setup-for-Satellite/edit/main/README.md) for the configuration of DHCP.
+See this article [DHCP Setup for Satellite](https://github.com/pslucas0212/DHCP-Setup-for-Satellite) for the configuration of DHCP.
 
 ### Configuring named
 
