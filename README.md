@@ -1,6 +1,6 @@
 # DNS Dynamic Updating
 
-Home article page - [Configuring External DNS and DHCP for Satellite](https://github.com/pslucas0212/Configuring-External-DNS-and-DHCP-for-Satellite/blob/main/README.md)
+Home article page - [External DNS and DHCP with Satellite](https://github.com/pslucas0212/External-DNS-and-DHCP-with-Satellite)
 
 The goal of this and associated articles is to describe how we would seutp DDNS and DHCP for use with Red Hat Satellite when provisioing RHEL VMs.  We want Satellite to grab an available IP address and associate it with FQDN and then update DNS server.  We can provision DDNS and DHCP servers on the Satellite server as part of the Satellite installation, but I would guess most shops already have these services in place and we to "integrate" with those existing services.
 
